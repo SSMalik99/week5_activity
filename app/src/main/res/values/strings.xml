@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">week5_activity</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="reset">Reset</string>
+</resources>
