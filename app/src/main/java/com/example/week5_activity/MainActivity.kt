@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.widget.Button
 import android.widget.Chronometer
+import androidx.appcompat.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,9 +60,15 @@ class MainActivity : AppCompatActivity() {
         val addFiveSecBtn = findViewById<Button>(R.id.addFiveBtn)
         // add one minute button function
         addOneSecBtn.setOnClickListener {
+
             if (!running){
                 offset += 1000
                 chronometer.base = SystemClock.elapsedRealtime() + offset
+            }else{
+                showWarningAlert(
+                    "You can't increase time while timer is running",
+                    "Warning!"
+                )
             }
 
         }
@@ -71,6 +78,11 @@ class MainActivity : AppCompatActivity() {
             if (!running){
                 offset += 5000
                 chronometer.base = SystemClock.elapsedRealtime() + offset
+            }else{
+                showWarningAlert(
+                    "You can't increase time while timer is running",
+                    "Warning!"
+                )
             }
         }
 
@@ -79,7 +91,9 @@ class MainActivity : AppCompatActivity() {
 
             if (!running) {
                 if (isGoingNegative()){
+
                     chronometer.stop()
+
                 }else {
                     //set base time
                     setBaseTime()
@@ -111,6 +125,15 @@ class MainActivity : AppCompatActivity() {
             setBaseTime()
             running = false
         }
+    }
+
+    private fun showWarningAlert(message:String, title: String) {
+        val dialogue = AlertDialog.Builder(this)
+        dialogue.setMessage(message)
+        dialogue.setCancelable(true)
+        val alert = dialogue.create()
+        alert.setTitle(title)
+        alert.show()
     }
 
 
